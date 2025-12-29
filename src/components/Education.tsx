@@ -1,125 +1,153 @@
-import { GraduationCap, Award, Calendar } from 'lucide-react';
+import { GraduationCap, Award, Calendar, BookOpen, ExternalLink } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 export default function Education() {
   const { isDark } = useTheme();
+
   const education = [
     {
       degree: 'BHSc (Hons) Biomedical Technology',
       institution: 'Gampaha Wickramarachchi University of Indigenous Medicine',
       status: 'Currently Reading',
-      icon: '🎓',
-      color: 'from-emerald-500 to-teal-500'
+      icon: <GraduationCap className="w-8 h-8" />,
+      color: 'from-emerald-500 via-teal-500 to-cyan-500',
+      description: 'Focusing on medical instrumentation, biotechnology, and healthcare innovation.'
     },
     {
       degree: 'Diploma in Information Technology',
-      institution: 'ICBT',
+      institution: 'ICBT Campus',
       status: 'Completed',
-      icon: '💻',
-      color: 'from-teal-500 to-cyan-500'
+      icon: <BookOpen className="w-8 h-8" />,
+      color: 'from-teal-500 via-cyan-500 to-blue-500',
+      description: 'Gained fundamental knowledge in software development and computing systems.'
     },
     {
       degree: 'Diploma in English',
       institution: 'Non Formal Resource Center',
       status: 'Completed',
-      icon: '📚',
-      color: 'from-cyan-500 to-blue-500'
-    }
-  ];
-
-  const schools = [
-    {
-      name: 'G/Navinna Muslim Maha Vidyalaya',
-      period: 'Grade 1-11',
-      icon: '🏫'
-    },
-    {
-      name: 'Malharus Sulhiya National School',
-      period: 'Grade 12-13',
-      icon: '🏫'
+      icon: <Award className="w-8 h-8" />,
+      color: 'from-cyan-500 via-blue-500 to-indigo-500',
+      description: 'Enhanced professional communication and academic English proficiency.'
     }
   ];
 
   return (
-    <section id="education" className={`py-20 transition-colors duration-300 ${
-      isDark ? 'bg-gray-800' : 'bg-white'
+    <section id="education" className={`py-24 relative overflow-hidden transition-all duration-700 ${
+      isDark ? 'bg-[#020617]' : 'bg-slate-50'
     }`}>
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="text-center mb-16 animate-fade-in-up">
-          <div className="inline-block p-3 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl mb-4">
-            <GraduationCap className="w-8 h-8 text-white" />
+      {/* Background Glows */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className={`absolute top-1/4 -left-20 w-80 h-80 rounded-full blur-[120px] opacity-20 ${isDark ? 'bg-emerald-600' : 'bg-emerald-200'}`}></div>
+        <div className={`absolute bottom-1/4 -right-20 w-80 h-80 rounded-full blur-[120px] opacity-20 ${isDark ? 'bg-cyan-600' : 'bg-cyan-200'}`}></div>
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
+        {/* Header Section */}
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-xs font-black tracking-[0.3em] uppercase mb-6 animate-pulse">
+            <GraduationCap className="w-4 h-4" />
+            My Academic Path
           </div>
-          <h2 className={`text-4xl md:text-5xl font-bold mb-4 transition-colors duration-300 ${
-            isDark ? 'text-white' : 'text-gray-800'
-          }`}>Education</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 mx-auto rounded-full"></div>
+          <h2 className={`text-5xl md:text-6xl font-black mb-6 tracking-tighter ${
+            isDark ? 'text-white' : 'text-slate-900'
+          }`}>
+            Education <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500">& Certifications</span>
+          </h2>
+          <div className="w-24 h-1.5 bg-gradient-to-r from-emerald-500 to-teal-500 mx-auto rounded-full"></div>
         </div>
 
-        <div className="space-y-8 mb-16">
+        {/* Education Timeline Cards */}
+        <div className="grid gap-10">
           {education.map((edu, index) => (
             <div
               key={index}
-              className={`group relative rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 animate-fade-in-up border hover:border-transparent hover:scale-[1.02] ${
-                isDark
-                  ? 'bg-gradient-to-br from-gray-700 to-gray-800 border-gray-600'
-                  : 'bg-gradient-to-br from-gray-50 to-white border-gray-100'
-              }`}
-              style={{ animationDelay: `${index * 150}ms` }}
+              className={`group relative rounded-[2.5rem] p-1 shadow-2xl transition-all duration-500 hover:-translate-y-2`}
             >
-              <div className={`absolute inset-0 bg-gradient-to-r ${edu.color} rounded-2xl opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
-              <div className="relative flex items-start gap-6">
-                <div className={`text-5xl transform group-hover:scale-110 transition-transform duration-300`}>
+              {/* Animated Border on Hover */}
+              <div className={`absolute inset-0 bg-gradient-to-r ${edu.color} rounded-[2.5rem] opacity-20 group-hover:opacity-100 transition-opacity duration-500`}></div>
+              
+              <div className={`relative h-full rounded-[2.4rem] p-8 md:p-10 flex flex-col md:flex-row items-center gap-8 ${
+                isDark ? 'bg-[#0a0f1e]' : 'bg-white'
+              }`}>
+                {/* Icon Container */}
+                <div className={`w-20 h-20 rounded-2xl flex items-center justify-center text-white bg-gradient-to-br ${edu.color} shadow-lg shadow-emerald-500/20 transform group-hover:rotate-12 transition-transform duration-500`}>
                   {edu.icon}
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-start justify-between flex-wrap gap-4">
+
+                {/* Content */}
+                <div className="flex-1 text-center md:text-left">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                     <div>
-                      <h3 className={`text-2xl font-bold mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-600 group-hover:to-teal-600 transition-all duration-300 ${
-                        isDark ? 'text-white' : 'text-gray-800'
+                      <h3 className={`text-2xl md:text-3xl font-black mb-1 ${
+                        isDark ? 'text-white' : 'text-slate-900'
                       }`}>
                         {edu.degree}
                       </h3>
-                      <p className={`text-lg mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{edu.institution}</p>
+                      <p className={`text-lg font-bold flex items-center justify-center md:justify-start gap-2 ${
+                        isDark ? 'text-emerald-400' : 'text-emerald-600'
+                      }`}>
+                        {edu.institution}
+                      </p>
                     </div>
-                    <span className={`px-4 py-2 bg-gradient-to-r ${edu.color} text-white rounded-full text-sm font-semibold shadow-md`}>
+                    <span className={`self-center md:self-start px-5 py-2 rounded-xl text-xs font-black uppercase tracking-widest border shadow-sm ${
+                      isDark 
+                        ? 'bg-white/5 border-white/10 text-slate-300' 
+                        : 'bg-slate-50 border-slate-200 text-slate-700'
+                    }`}>
                       {edu.status}
                     </span>
                   </div>
+                  <p className={`text-lg leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                    {edu.description}
+                  </p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className={`bg-gradient-to-br rounded-2xl p-8 shadow-lg transition-colors duration-300 ${
-          isDark ? 'from-gray-700 to-gray-800' : 'from-emerald-50 to-teal-50'
-        }`}>
-          <h3 className={`text-2xl font-bold mb-6 flex items-center gap-3 ${
-            isDark ? 'text-white' : 'text-gray-800'
+        {/* School Education Section */}
+        <div className="mt-20">
+          <div className={`rounded-[3rem] p-10 md:p-14 relative overflow-hidden shadow-2xl border ${
+            isDark ? 'bg-white/5 border-white/10' : 'bg-white border-emerald-100'
           }`}>
-            <Award className="w-7 h-7 text-emerald-600" />
-            School Education
-          </h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            {schools.map((school, index) => (
-              <div
-                key={index}
-                className={`rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 ${
-                  isDark ? 'bg-gray-800' : 'bg-white'
-                }`}
-              >
-                <div className="flex items-center gap-4">
-                  <div className="text-4xl">{school.icon}</div>
-                  <div>
-                    <h4 className={`font-semibold text-lg mb-1 ${isDark ? 'text-white' : 'text-gray-800'}`}>{school.name}</h4>
-                    <div className={`flex items-center gap-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                      <Calendar className="w-4 h-4" />
-                      <span>{school.period}</span>
+            <h3 className={`text-3xl font-black mb-10 flex items-center gap-4 ${
+              isDark ? 'text-white' : 'text-slate-900'
+            }`}>
+              <Award className="w-10 h-10 text-emerald-500" />
+              Schooling Years
+            </h3>
+
+            <div className="grid md:grid-cols-2 gap-8 relative">
+              {/* Connector line for large screens */}
+              <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-emerald-500/50 to-transparent"></div>
+
+              {[
+                { name: 'G/Navinna Muslim Maha Vidyalaya', period: 'Grade 1-11', icon: '🏫', loc: 'Junior Secondary' },
+                { name: 'Malharus Sulhiya National School', period: 'Grade 12-13', icon: '🏛️', loc: 'Advanced Level' }
+              ].map((school, index) => (
+                <div
+                  key={index}
+                  className={`relative group p-6 rounded-2xl transition-all duration-300 ${
+                    isDark ? 'hover:bg-white/5' : 'hover:bg-emerald-50'
+                  }`}
+                >
+                  <div className="flex items-start gap-6">
+                    <div className="text-5xl group-hover:scale-110 transition-transform">{school.icon}</div>
+                    <div>
+                      <h4 className={`text-xl font-black mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{school.name}</h4>
+                      <div className="flex flex-col gap-1">
+                        <span className="text-emerald-500 font-bold text-sm uppercase tracking-tighter">{school.loc}</span>
+                        <div className={`flex items-center gap-2 text-sm font-bold ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                          <Calendar className="w-4 h-4" />
+                          {school.period}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

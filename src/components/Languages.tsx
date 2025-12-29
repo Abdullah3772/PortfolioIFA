@@ -1,105 +1,120 @@
-import { Languages as LanguagesIcon } from 'lucide-react';
+import { Languages as LanguagesIcon, Globe2, Sparkles } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 export default function Languages() {
   const { isDark } = useTheme();
+  
   const languages = [
-    { name: 'Sinhala', level: 100, flag: '🇱🇰', color: 'from-yellow-500 to-red-500' },
-    { name: 'Tamil', level: 100, flag: '🇱🇰', color: 'from-red-500 to-orange-500' },
-    { name: 'English', level: 90, flag: '🇬🇧', color: 'from-blue-500 to-red-500' },
+    { name: 'Sinhala', level: 100, flag: '🇱🇰', status: 'Native', color: '#f59e0b', secondary: '#ef4444' },
+    { name: 'Tamil', level: 100, flag: '🇱🇰', status: 'Native', color: '#ef4444', secondary: '#f97316' },
+    { name: 'English', level: 90, flag: '🇬🇧', status: 'Professional', color: '#3b82f6', secondary: '#06b6d4' },
   ];
 
   return (
-    <section id="languages" className={`py-20 transition-colors duration-300 ${
-      isDark ? 'bg-gray-800' : 'bg-white'
+    <section id="languages" className={`py-24 relative overflow-hidden transition-all duration-700 ${
+      isDark ? 'bg-[#020617]' : 'bg-slate-50'
     }`}>
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="text-center mb-16 animate-fade-in-up">
-          <div className="inline-block p-3 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl mb-4">
-            <LanguagesIcon className="w-8 h-8 text-white" />
+      {/* Background Glow */}
+      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[120px] opacity-10 ${isDark ? 'bg-emerald-500' : 'bg-emerald-200'}`}></div>
+
+      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
+        {/* Header Section */}
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-xs font-black tracking-[0.3em] uppercase mb-4">
+            <Globe2 className="w-4 h-4" />
+            Communication Skills
           </div>
-          <h2 className={`text-4xl md:text-5xl font-bold mb-4 transition-colors duration-300 ${
-            isDark ? 'text-white' : 'text-gray-800'
-          }`}>Languages</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 mx-auto rounded-full"></div>
-          <p className={`mt-4 text-lg transition-colors duration-300 ${
-            isDark ? 'text-gray-400' : 'text-gray-600'
-          }`}>Multilingual communication abilities</p>
+          <h2 className={`text-5xl md:text-6xl font-black mb-6 tracking-tighter ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            Languages <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500">I Speak</span>
+          </h2>
+          <div className="w-24 h-1.5 bg-gradient-to-r from-emerald-500 to-teal-500 mx-auto rounded-full"></div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {languages.map((lang, index) => (
-            <div
-              key={index}
-              className={`group rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 animate-fade-in-up ${
-                isDark ? 'bg-gradient-to-br from-gray-700 to-gray-800' : 'bg-gradient-to-br from-gray-50 to-white'
-              }`}
-              style={{ animationDelay: `${index * 150}ms` }}
-            >
-              <div className="text-center mb-6">
-                <div className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {lang.flag}
-                </div>
-                <h3 className={`text-2xl font-bold mb-2 transition-colors duration-300 ${
-                  isDark ? 'text-white' : 'text-gray-800'
-                }`}>{lang.name}</h3>
-              </div>
+        <div className="grid md:grid-cols-3 gap-10">
+          {languages.map((lang, index) => {
+            const radius = 70;
+            const circumference = 2 * Math.PI * radius;
+            const offset = circumference - (lang.level / 100) * circumference;
 
-              <div className="relative">
-                <div className="flex justify-center mb-4">
-                  <div className="relative w-32 h-32">
-                    <svg className="transform -rotate-90 w-32 h-32">
+            return (
+              <div
+                key={index}
+                className={`group relative rounded-[3rem] p-8 transition-all duration-500 hover:-translate-y-3 border shadow-2xl ${
+                  isDark ? 'bg-slate-900/50 border-white/5 shadow-black' : 'bg-white border-slate-100 shadow-slate-200'
+                }`}
+              >
+                {/* Top Shine Effect */}
+                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/5 to-transparent rounded-[3rem] pointer-events-none"></div>
+
+                <div className="text-center relative z-10">
+                  {/* Flag & Status */}
+                  <div className="flex justify-between items-center mb-8">
+                    <span className="text-4xl filter drop-shadow-lg">{lang.flag}</span>
+                    <span className={`px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest border ${
+                      isDark ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' : 'bg-emerald-50 border-emerald-100 text-emerald-700'
+                    }`}>
+                      {lang.status}
+                    </span>
+                  </div>
+
+                  {/* Circular Progress */}
+                  <div className="relative inline-flex items-center justify-center mb-8">
+                    <svg className="w-44 h-44 transform -rotate-90">
+                      {/* Background Circle */}
                       <circle
-                        cx="64"
-                        cy="64"
-                        r="56"
+                        cx="88"
+                        cy="88"
+                        r={radius}
                         stroke="currentColor"
-                        strokeWidth="8"
-                        fill="none"
-                        className="text-gray-200"
+                        strokeWidth="12"
+                        fill="transparent"
+                        className={isDark ? 'text-slate-800' : 'text-slate-100'}
                       />
+                      {/* Progress Circle */}
                       <circle
-                        cx="64"
-                        cy="64"
-                        r="56"
-                        stroke="url(#gradient)"
-                        strokeWidth="8"
-                        fill="none"
-                        strokeDasharray={`${2 * Math.PI * 56}`}
-                        strokeDashoffset={`${2 * Math.PI * 56 * (1 - lang.level / 100)}`}
-                        className="transition-all duration-1000 ease-out"
+                        cx="88"
+                        cy="88"
+                        r={radius}
+                        stroke={`url(#grad-${index})`}
+                        strokeWidth="12"
+                        strokeDasharray={circumference}
+                        strokeDashoffset={offset}
                         strokeLinecap="round"
+                        fill="transparent"
+                        className="transition-all duration-1000 ease-out group-hover:drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]"
                       />
                       <defs>
-                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" className="text-emerald-500" stopColor="currentColor" />
-                          <stop offset="100%" className="text-teal-500" stopColor="currentColor" />
+                        <linearGradient id={`grad-${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor={lang.color} />
+                          <stop offset="100%" stopColor={lang.secondary} />
                         </linearGradient>
                       </defs>
                     </svg>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-                      <span className="text-3xl font-bold text-gray-800">{lang.level}%</span>
+                    
+                    {/* Percentage Text */}
+                    <div className="absolute flex flex-col items-center">
+                      <span className={`text-4xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                        {lang.level}%
+                      </span>
+                      <Sparkles className="w-4 h-4 text-emerald-500 mt-1 animate-pulse" />
                     </div>
                   </div>
-                </div>
 
-                <div className="space-y-2">
-                  <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div
-                      className={`h-full bg-gradient-to-r ${lang.color} rounded-full transition-all duration-1000 ease-out group-hover:scale-105`}
-                      style={{ width: `${lang.level}%` }}
-                    ></div>
-                  </div>
-                  <div className={`flex justify-between text-sm transition-colors duration-300 ${
-                    isDark ? 'text-gray-400' : 'text-gray-600'
-                  }`}>
-                    <span>Proficiency</span>
-                    <span className={`font-semibold ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>{lang.level === 100 ? 'Native' : 'Advanced'}</span>
+                  {/* Language Name */}
+                  <h3 className={`text-3xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                    {lang.name}
+                  </h3>
+                  
+                  {/* Skill Badges */}
+                  <div className="mt-6 flex justify-center gap-2">
+                    {['Writing', 'Reading', 'Speaking'].map((s) => (
+                      <div key={s} className={`w-2 h-2 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500`}></div>
+                    ))}
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
