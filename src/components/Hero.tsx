@@ -1,9 +1,22 @@
-import { Mail, Phone, MapPin, ChevronRight, Sparkles } from "lucide-react";
+import React from 'react';
+import { Mail, Phone, MapPin, ChevronRight, Sparkles, Download } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import profileImg from "../assets/profile.jpg";
 
 export default function Hero() {
   const { isDark } = useTheme();
+
+  // Function to handle CV Download
+  const handleDownloadCV = () => {
+    // Replace this with the actual path to your CV file in the public folder
+    const cvUrl = "/Aayisha_CV.pdf"; 
+    const link = document.createElement("a");
+    link.href = cvUrl;
+    link.setAttribute("download", "Aayisha_CV.pdf");
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  };
 
   return (
     <>
@@ -79,8 +92,6 @@ export default function Hero() {
             {/* --- CONTENT SECTION --- */}
             <div className="flex-1 text-center lg:text-left space-y-8 order-2 lg:order-1">
               
-              {/* Badge removed from here */}
-
               <div className="space-y-4">
                 <h1 className={`text-6xl md:text-8xl font-black tracking-tighter leading-tight ${isDark ? "text-white" : "text-emerald-950"}`}>
                   I.F. <span className="premium-text-gradient">Aayisha</span>
@@ -102,7 +113,7 @@ export default function Hero() {
                 <span className="text-teal-600 dark:text-teal-400 font-black"> digital intelligence</span>.
               </p>
 
-              {/* Premium Contact Grid */}
+              {/* Contact Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto lg:mx-0">
                 <div className="flex items-center gap-4 p-4 glass-card rounded-2xl group hover:scale-105 transition-all duration-300">
                   <div className="w-12 h-12 rounded-xl bg-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-600/30">
@@ -118,14 +129,27 @@ export default function Hero() {
                 </div>
               </div>
 
-              <div className="pt-4">
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start">
                 <button 
                   onClick={() => window.location.href = 'mailto:your-email@example.com'}
-                  className="btn-premium-shine group px-12 py-5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-2xl font-black text-lg shadow-[0_20px_40px_rgba(5,150,105,0.4)] transition-all flex items-center gap-3 mx-auto lg:mx-0 active:scale-95"
+                  className="btn-premium-shine group px-10 py-5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-2xl font-black text-lg shadow-[0_20px_40px_rgba(5,150,105,0.4)] transition-all flex items-center justify-center gap-3 active:scale-95"
                 >
                   <Mail className="w-6 h-6" />
-                  Let's Work Together
+                  Hire Me
                   <ChevronRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                </button>
+
+                <button 
+                  onClick={handleDownloadCV}
+                  className={`px-10 py-5 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3 border-2 active:scale-95 ${
+                    isDark 
+                    ? "border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10" 
+                    : "border-emerald-600 text-emerald-700 hover:bg-emerald-50"
+                  }`}
+                >
+                  <Download className="w-6 h-6" />
+                  Download CV
                 </button>
               </div>
             </div>
